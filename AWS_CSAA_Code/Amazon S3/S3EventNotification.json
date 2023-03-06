@@ -1,0 +1,21 @@
+{
+ "Version": "2012-10-17",
+ "Id": "AllowS3Publish",
+ "Statement": [
+  {
+   "Sid": "S3EventNotification",
+   "Effect": "Allow",
+   "Principal": {
+     "Service": "s3.amazonaws.com"  
+   },
+   "Action": [
+    "SNS:Publish"
+   ],
+   "Resource": "arn:aws:sns:us-east-1:291934546285:MyEmailNotification",
+   "Condition": {
+      "ArnLike": { "aws:SourceArn": "arn:aws:s3:::aws-csaa-labs" },
+      "StringEquals": { "aws:SourceAccount": "291934546285" }
+   }
+  }
+ ]
+}

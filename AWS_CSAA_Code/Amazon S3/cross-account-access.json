@@ -1,0 +1,64 @@
+# Account A Role Trust Policy
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "arn:aws:iam::396388525848:user/john"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+}
+
+  https://396388525848.signin.aws.amazon.com/console
+
+  arn:aws:iam::291934546285:user/elhadji
+
+# Account A Role Permissions (inline)
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:ListAllMyBuckets"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::*"
+            ]
+        },
+        {
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::aws-csaa-labs"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::aws-csaa-labs/*"
+        }
+    ]
+}
+
+# Account B User Permissions (inline)
+
+{
+    "Version": "2012-10-17",
+    "Statement": {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Resource": "arn:aws:iam::291934546285:role/CrossAccountS3"
+    }
+}
+
+  

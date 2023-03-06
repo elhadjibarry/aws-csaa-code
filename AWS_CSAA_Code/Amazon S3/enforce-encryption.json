@@ -1,0 +1,21 @@
+{
+    "Version": "2012-10-17",
+    "Id": "PutObjPolicy",
+    "Statement": [
+        {
+            "Sid": "DenyUnEncryptedObjectUploads",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::aws-csaa-labbs-encrypt/*",
+            "Condition": {
+                "Null": {
+                    "s3:x-amz-server-side-encryption": "true"
+                }
+            }
+        }
+    ]
+}
+
+## Command without encryption: aws s3 cp mys3object.txt s3://aws-csaa-labbs-encrypt
+## Command with encryption: aws s3api put-object --body mys3object.txt --key mys3object.txt --bucket aws-csaa-labbs-encrypt --server-side-encryption AES256
